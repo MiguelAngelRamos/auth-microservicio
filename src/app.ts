@@ -4,6 +4,7 @@ import container from './config/container';
 import connectDB from './config/mongo';
 
 import dotenv from 'dotenv';
+import initHydra from './config/hydraConfig';
 dotenv.config();
 
 const startServer = async () => {
@@ -11,6 +12,8 @@ const startServer = async () => {
   app.use(express.json());
   app.use(scopePerRequest(container));
 
+  await initHydra();
+  
   // Conexion a la base de datos
   connectDB();
 
