@@ -15,6 +15,13 @@ export default class AuthController {
       const token = this.authService.generateToken(newUser);
       res.status(201).json({token});
       
+    } catch (error) {
+      if(error instanceof Error) {
+        res.status(400).send({error: error.message});
+      } else {
+        res.status(500).send({error: 'Ocurrio un error inesperado'});
+      }
+     
     }
   }
 }
