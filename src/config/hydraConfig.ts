@@ -27,8 +27,8 @@ const initHydra = async() => {
     // Registramos el servicio en Hydra, Esto lo añade al ecosistema de microservicios
     await Hydra.registerService();
 
-  } catch (error) {
-    console.error('Error initializing Hydra', error);
+  } catch (err) {
+    console.error('Error initializing Hydra', err);
     process.exit(1);
   }
 }
