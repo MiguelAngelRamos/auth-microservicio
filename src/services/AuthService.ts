@@ -10,7 +10,14 @@ export default class AuthService {
     return user;
   }
 
-  // authenticate
+  // authenticate "login"
+  async authenticate(username: string, password: string ): Promise<IUser> {
+    const user = await User.findOne({username});
+    if(!user) throw new Error('Usuario no encontrado');
+    const isMatch = await argon2.verify(user.password, password);
+    if(!isMatch) throw new Error('Credenciales incorrectas');
+    return user;
+  }
 
 
   // generate token
@@ -20,7 +27,7 @@ export default class AuthService {
     }
     return sign({
       userId: user._id,
-      role: user.role
+      role: user.role,
     }, process.env.JWT_SECRET, {expiresIn: '1h'})
   }
   // verifytoken
