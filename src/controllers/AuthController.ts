@@ -42,4 +42,20 @@ export default class AuthController {
       }
     }
   }
+
+  @route('/validatetoken')
+  @POST()
+  public async validateToken(req: Request, res: Response): Promise<void> {
+    try {
+      const { token } = req.body;
+      const decoded = this.authService.verifyToken(token);
+      res.json(decoded);
+    } catch (error) {
+      if(error instanceof Error) {
+        res.status(400).send({error: error.message});
+      } else {
+        res.status(500).send({error: 'Ocurrio un error inesperado'});
+      }
+    }
+  }
 }

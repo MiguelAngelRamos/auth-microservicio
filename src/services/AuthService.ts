@@ -38,7 +38,7 @@ export default class AuthService {
         throw new Error('la clave secreta del JWT no está definida');
       }
       const decoded = verify(token, process.env.JWT_SECRET);
-      console.log(decoded)
+      return { result: decoded }
     } catch (error) {
       throw new Error('Token inválido');
     }
